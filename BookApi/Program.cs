@@ -10,6 +10,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddDbContext<RepositoryContext>();
+//builder.Services.AddAuthorization();
+//builder.Services.AddAuthentication();
 
 //SORU 4, adı "ozel" olan politikayı eklemek ve kullanmak
 builder.Services.AddCors(options =>
@@ -44,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+// app.UseAuthorization();
+// app.UseAuthentication();
 
 
 //SORU 1
