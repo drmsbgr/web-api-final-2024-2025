@@ -16,12 +16,11 @@ public class RepositoryContext : DbContext
         optionsBuilder.UseSqlite("Data Source = app.db");
     }
 
-    //TEST ETMEK İÇİN YAZILDI
+    //3.SORU İLE İLGİLİ OLABİLİR
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        //modelBuilder.Entity<Category>().HasMany(c => c.Books);
         modelBuilder.Entity<Category>().HasData(
             new Category() { CategoryId = 1, Name = "Fantastik" },
             new Category() { CategoryId = 2, Name = "Klasik" },
@@ -30,7 +29,6 @@ public class RepositoryContext : DbContext
             new Category() { CategoryId = 5, Name = "Tarihi Roman" }
         );
 
-        //modelBuilder.Entity<Author>().HasMany(a => a.Books);
         modelBuilder.Entity<Author>().HasData(
             new Author() { AuthorId = 1, FullName = "J. K. Rowling" },
             new Author() { AuthorId = 2, FullName = "Fyodor Dostoyevski" },
@@ -41,8 +39,9 @@ public class RepositoryContext : DbContext
             new Author() { AuthorId = 7, FullName = " Margaret Doody" }
         );
 
-        modelBuilder.Entity<Book>().HasOne(b => b.Category);
-        //modelBuilder.Entity<Book>().HasMany(b => b.Authors);
+        //many to many ilişkisi
+        modelBuilder.Entity<Book>().HasMany(b => b.Authors).WithMany(a => a.Books).UsingEntity<BookAuthor>();
+
         modelBuilder.Entity<Book>().HasData(
             new Book() { BookId = 1, Title = "Harry Potter ve Felsefe Taşı", CategoryId = 1 },
             new Book() { BookId = 2, Title = "Suç ve Ceza", CategoryId = 2 },

@@ -10,7 +10,8 @@ public class BookService(RepositoryContext context) : IBookService
     public IQueryable<Book> GetAllBooks()
     {
         return _context.Books.AsQueryable()
-        .Include(x => x.Category);
+        .Include(x => x.Category)
+        .Include(x => x.Authors);
     }
     public List<Book> GetBooksByCategoryId(int categoryId)
     {
