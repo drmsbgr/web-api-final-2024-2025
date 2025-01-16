@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddDbContext<RepositoryContext>();
 
-//SORU 4, adı "ozel" alan politika
+//SORU 4, adı "ozel" olan politikayı eklemek ve kullanmak
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("all", builder =>
@@ -47,11 +47,11 @@ app.UseHttpsRedirection();
 
 
 //SORU 1
-app.MapGet("/api/books/category/{categoryId:int}", /*[Authorize(Roles = "User")]*/ (int categoryId, IBookService bookService) =>
+app.MapGet("/api/books/category/{categoryId:int}", [Authorize(Roles = "User")] (int categoryId, IBookService bookService) =>
 {
     return bookService.GetBooksByCategoryId(categoryId);
 })
-//.RequireAuthorization();
+.RequireAuthorization();
 ;
 
 

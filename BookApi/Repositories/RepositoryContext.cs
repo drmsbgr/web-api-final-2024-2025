@@ -16,7 +16,7 @@ public class RepositoryContext : DbContext
         optionsBuilder.UseSqlite("Data Source = app.db");
     }
 
-    //sınav ile ilgisi yok
+    //TEST ETMEK İÇİN YAZILDI, SINAVLA İLGİLİ DEĞİL
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
