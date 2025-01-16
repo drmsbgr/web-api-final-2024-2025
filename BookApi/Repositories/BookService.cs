@@ -1,23 +1,28 @@
+using AutoMapper;
 using BookApi.Entities;
+using BookApi.Entities.Dtos;
 using BookApi.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookApi.Repositories;
 
-public class BookService(RepositoryContext context) : IBookService
+public class BookService(RepositoryContext context, IMapper mapper) : IBookService
 {
     private readonly RepositoryContext _context = context;
-    public IQueryable<Book> GetAllBooks()
+    private readonly IMapper _mapper = mapper;
+
+    public IQueryable<Book> GetAll() => _context.Books.Include(b => b.Category).Include(b => b.Authors);
+
+    public List<BookDto> GetAllBooks()
     {
-        return _context.Books.AsQueryable()
-        .Include(x => x.Category)
-        //.Include(x => x.Authors);
-        ;
+        var books = GetAll().ToList();
+        return _mapper.Map<List<BookDto>>(books);
     }
-    public List<Book> GetBooksByCategoryId(int categoryId)
+    public List<BookDto> GetBooksByCategoryId(int categoryId)
     {
-        return GetAllBooks()
-        .Where(x => x.CategoryId == categoryId)
-        .ToList();
+        var books = GetAll()
+        .Where(x => x.CategoryId == categoryId).ToList();
+
+        return _mapper.Map<List<BookDto>>(books);
     }
 }

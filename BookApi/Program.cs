@@ -10,6 +10,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddDbContext<RepositoryContext>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 //SORU 4, adı "ozel" alan politika
 builder.Services.AddCors(options =>

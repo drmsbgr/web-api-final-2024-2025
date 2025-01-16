@@ -1,9 +1,10 @@
 using BookApi.Entities;
+using BookApi.Entities.Dtos;
 
 namespace BookApi.Repositories.Contracts;
 
 public interface IBookService
 {
-    IQueryable<Book> GetAllBooks();
-    List<Book> GetBooksByCategoryId(int categoryId);
+    List<BookDto> GetAllBooks();
+    List<BookDto> GetBooksByCategoryId(int categoryId);
 }
