@@ -30,7 +30,7 @@ public class RepositoryContext : DbContext
             new Category() { CategoryId = 5, Name = "Tarihi Roman" }
         );
 
-        modelBuilder.Entity<Author>().HasMany(a => a.Books);
+        //modelBuilder.Entity<Author>().HasMany(a => a.Books);
         modelBuilder.Entity<Author>().HasData(
             new Author() { AuthorId = 1, FullName = "J. K. Rowling" },
             new Author() { AuthorId = 2, FullName = "Fyodor Dostoyevski" },
