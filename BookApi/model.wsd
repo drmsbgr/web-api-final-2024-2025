@@ -1,0 +1,61 @@
+@startuml BookApi
+
+package BookApi.Entities{
+    class Book{
+        +Id:int
+        +Title:string
+        +CategoryId:int
+        +Category:Category?
+        +BookAuthors:ICollection<BookAuthor>?
+    }
+    class Author{
+        +Id:int
+        +FullName:string
+        +Books:ICollection<Book>?
+    }
+    class Category{
+        +Id:int
+        +Name:string
+        +Books:ICollection<Book>?
+    }
+    class BookAuthor{
+        +Id:int
+        +AuthorId:int
+        +BookId:int
+        +Book:Book?
+        +Author:Author?
+    }
+
+    Book -right-o Category : has a
+    BookAuthor -up-o Book : has a
+    BookAuthor -up-o Author : has a
+}
+
+package BookApi.Repositories{
+    package Contracts{
+        interface IBookService{
+            +GetAllBooks():IQueryable<Book>
+            +GetBooksByCategoryId(categoryId:int):List<Book>
+        }
+    }
+
+    class BookService{
+        #_context:RepositoryContext
+        +GetAllBooks():IQueryable<Book>
+        +GetBooksByCategoryId(categoryId:int):List<Book>
+    }
+
+    BookService -up-o RepositoryContext : has a
+    BookService .up.|> IBookService : implements
+
+    class RepositoryContext{
+        +Books:DbSet<Book>
+        +Authors:DbSet<Author>
+        +BookAuthors:DbSet<BookAuthors>
+        +Categories:DbSet<Category>
+    }
+}
+
+hide empty members
+
+@enduml
